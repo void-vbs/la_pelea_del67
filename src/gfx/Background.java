@@ -37,7 +37,7 @@ public class Background {
         }
     }
 
-    // renderizamos siempre sobre la resolución fija interna (320x180)
+    // renderizamos siempre sobre la resolución fija interna (640x360)
     public void render(Graphics2D g2d) {
         if (imagen != null) {
             g2d.drawImage(imagen, 0, (int) y1, 640, 360, null);

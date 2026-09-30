@@ -19,13 +19,13 @@ public class Juego implements Runnable {
     private Thread thread;
 
     public Juego() {
-        // tamaño de ventana escalado (por ejemplo, 1280x720 es 320x180 x 4)
+        // tamaño de ventana escalado (640x360 es multiplo de las resoluciones)
         window = new WindowManager("Prueba1", 1920, 1080);
 
         // creamos la imagen interna en memoria ram
         lienzoVirtual = new BufferedImage(ANCHO_VIRTUAL, ALTO_VIRTUAL, BufferedImage.TYPE_INT_RGB);
 
-        // cargamos la textura del espacio (320x180)
+        // cargamos la textura del espacio (640x360)
         fondo = new Background("/texturas/mapas/espacio2.jpeg");
     }
 
@@ -42,7 +42,7 @@ public class Juego implements Runnable {
         }
 
         // ==========================================
-        // PASO 1: dibujar en el lienzo virtual (320x180)
+        // PASO 1: dibujar en el lienzo virtual (640x360)
         // ==========================================
         Graphics2D gVirtual = lienzoVirtual.createGraphics();
 
@@ -78,7 +78,7 @@ public class Juego implements Runnable {
             render();
 
             try {
-                Thread.sleep(16); // ~60 FPS
+                Thread.sleep(16); // ~60 fps
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
