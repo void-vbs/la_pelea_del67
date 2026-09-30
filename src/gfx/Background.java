@@ -1,42 +1,47 @@
 package gfx;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Background {
-    
-    private BufferedImage imagenActual;
-    private double x = 0;
-    private double y = 0;
 
-    public Background(String rutaInicial){
+    private BufferedImage imagen;
+    private double y1;
+    private double y2;
+    private double velocidad = 0.4; // velocidad del scroll de estrellas
+
+    public Background(String rutaInicial) {
         cambiarFondo(rutaInicial);
+        this.y1 = 0;
+        // la segunda imagen se coloca justo encima de la primera
+        this.y2 = -360;
     }
 
-    public void cambiarFondo(String ruta){
-        this.imagenActual = ImageLoader.cargarImagen(ruta);
+    public void cambiarFondo(String ruta) {
+        this.imagen = ImageLoader.cargarImagen(ruta);
     }
 
-    // metodo para mover el fondo o sincronizar con una camara
-    public void setPosicion(double x, double y){
-        this.x = x;
-        this.y = y;
-    }
+    public void update() {
+        // mover hacia abajo
+        y1 += velocidad;
+        y2 += velocidad;
 
-    public void render(Graphics2D g2d, int anchoPantalla, int altoPantalla){
-        if (imagenActual != null){
-            // dibuja la imagen en la posicion calculada con su tamano real
-            g2d.drawImage(imagenActual, (int) x, (int) y, anchoPantalla, altoPantalla, null);
+        // si la primera imagen sale por la parte inferior, vuelve arriba
+        if (y1 >= 360) {
+            y1 = y2 - 360;
+        }
+
+        // si la segunda imagen sale por la parte inferior, vuelve arriba
+        if (y2 >= 360) {
+            y2 = y1 - 360;
         }
     }
 
-    // getters
-    public int getAncho(){
-        return imagenActual != null ? imagenActual.getWidth() : 0;
+    // renderizamos siempre sobre la resolución fija interna (320x180)
+    public void render(Graphics2D g2d) {
+        if (imagen != null) {
+            g2d.drawImage(imagen, 0, (int) y1, 640, 360, null);
+            g2d.drawImage(imagen, 0, (int) y2, 640, 360, null);
+        }
     }
-
-    public int getAlto(){
-        return imagenActual != null ? imagenActual.getHeight() : 0;
-    }
- 
-
 }
