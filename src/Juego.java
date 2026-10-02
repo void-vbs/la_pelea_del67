@@ -78,7 +78,7 @@ public class Juego implements Runnable {
             render();
 
             try {
-                Thread.sleep(16); // ~60 fps
+                Thread.sleep(16); // ~60 fps 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
