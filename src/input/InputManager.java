@@ -3,6 +3,8 @@ package input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import entidades.Entidad;
+
 public class InputManager implements KeyListener {
 
     private boolean[] teclas = new boolean[256];
@@ -21,6 +23,11 @@ public class InputManager implements KeyListener {
     public void keyPressed(KeyEvent tecla){
         if (tecla.getKeyCode() < teclas.length){
             teclas[tecla.getKeyCode()] = true;
+        }
+
+        // para debug (ver hitbox)
+        if (tecla.getKeyCode() == KeyEvent.VK_H){
+            Entidad.HITBOX = !Entidad.HITBOX;
         }
     }
 

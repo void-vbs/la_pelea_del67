@@ -1,8 +1,13 @@
 package entidades;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 public abstract class Entidad {
+
+    // toggle de la hitbox
+    public static boolean HITBOX = false;
 
     protected double x,y;
     protected int ancho, alto;
@@ -18,6 +23,19 @@ public abstract class Entidad {
 
     public abstract void update();
     public abstract void render(Graphics2D g2d);
+
+    // caja de colision por default
+    public Rectangle getLimites(){
+        return new Rectangle((int) x, (int) y, ancho, alto);
+    }            
+
+    // metodo auxiliar para dibujar la hitbox
+    protected void renderHitbox(Graphics2D g2d){
+        if(HITBOX){
+            g2d.setColor(Color.BLUE);
+            g2d.drawRect((int) x, (int) y, ancho, alto);
+        }
+    }
 
     // getters
     public double getX(){
